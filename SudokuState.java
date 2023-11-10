@@ -1,4 +1,3 @@
-
 public class SudokuState {
 	int [][] board = new int [4][4]; //2D array
 	int moves;
@@ -18,13 +17,11 @@ public class SudokuState {
     // Edie: take a solved board and create an unsolved board from it initalize()
     public SState initalize(int[][] goalBoard) {
         int[][] newInitialBoard = goalboard;
-        int newRow = blankX + amtRowMove;
-        int newCol = blankY + amtColMove;
 
         Random rand = new Random();
 
-		for (int row = 0; row < board.length; row++) {
-            for (int col = 0; col < board[row].length; col++) {
+		for (int row = 0; row < goalBoard.length; row++) {
+            for (int col = 0; col < goalBoard[row].length; col++) {
                 sb.append(board[row][col]);
                 sb.append(' ');
                 if (col==1) {
