@@ -1,8 +1,10 @@
+
+import java.util.Random;
+
 public class SudokuState {
 	int [][] board = new int [4][4]; //2D array
 	int moves;
 
-    // Edie: create an isValid()
 
 	//constructor
 	public SudokuState(int[][] board, int moves) {
@@ -11,68 +13,77 @@ public class SudokuState {
     }
 	   
     // Edie: applyValidAction()
-    public SudokuState applyValidAction() {
+    public void applyValidAction(int[][] initialBoard) {
+    	//it needs to sift through the whole array and notice when a value is zero - done
+    	//needs to see the other values in the row, column, and square of the current decision
+    	//needs to take those values and deduce out of 1,2,3, and 4 which moves are possible
+    	//if there is more than one possibility it needs to randomly choose one and apply it to that cell
+    	
+    	for (int i = 0; i < initialBoard.length; i++) {
+   	        for (int j = 0; j < initialBoard[i].length; j++) {
+   	            if (initialBoard[i][j] == 0) {
+   	                
+   	            }
+   	        }
+   	    }
 
     }
+    
+    
     // Edie: take a solved board and create an unsolved board from it initalize()
-    public SState initalize(int[][] goalBoard) {
-        int[][] newInitialBoard = goalboard;
+    public static int[][] initalize(int[][] goalBoard) {
 
-        Random rand = new Random();
-
-		for (int row = 0; row < goalBoard.length; row++) {
-            for (int col = 0; col < goalBoard[row].length; col++) {
-                sb.append(board[row][col]);
-                sb.append(' ');
-                if (col==1) {
-                	sb.append("|");
-                	sb.append(' ');
-                }
-            }
-            if (row==1) {
-            	sb.append('\n');
-            	sb.append("---------");
-            }
-            sb.append('\n'); // Add a newline after each row
+        //makes copy of goal board so we don't alter it and can go back and check it later for if its the correct answer if we want
+        int[][] newInitialBoard = new int[goalBoard.length][];
+        for(int i = 0; i < goalBoard.length; i++)
+        {
+        	newInitialBoard[i] = new int[goalBoard[i].length];
+        	for (int j = 0; j < goalBoard[i].length; j++)
+        	{
+        		newInitialBoard[i][j] = goalBoard[i][j];
+        	}
         }
- 
-        //swaps the blank and whichever was chosen to swap with it
-        if (newRow >= 0 && newRow < board.length && newCol >= 0 && newCol < board[0].length) {
-        	
-        	int temp = board[newRow][newCol];
-            board[newRow][newCol] = 0;
-            board[blankX][blankY] = temp;
-            
-            
+        
+        int rows = goalBoard.length;
+        int cols = goalBoard[0].length;
+
+        //deciding how many we want to delete
+        int amtToDelete = 10;
+        
+        //randomly chooses cells in the array as many times as we want cells switched to zero and switches them to zero
+        Random random = new Random();
+        for (int i = 0; i < amtToDelete; i++) {
+            int rowNum = random.nextInt(rows);
+            int colNum = random.nextInt(cols);
+            newInitialBoard[rowNum][colNum] = 0;
         }
 
-		return newInitialBoard;
+        return newInitialBoard;
+
     }
 
     // Edie: define the goal state isGoal()
-    boolean isGoal() { 
-	    	
-   	   for (int i = 0; i < board.length; i++) {
-   		   
-   	       for (int j = 0; j < board[i].length; j++) {
-   	           if (board[i][j] != goalBoard[i][j]) {
-   	               return false;
-   	           }
-   	       }
-   	   }
+    boolean isGoal(int [][] goalBoard) { 
+    	int[][] newGoalBoard = new int[goalBoard.length][];
+        for(int i = 0; i < goalBoard.length; i++)
+        {
+        	newGoalBoard[i] = new int[goalBoard[i].length];
+        	for (int j = 0; j < goalBoard[i].length; j++)
+        	{
+        		newGoalBoard[i][j] = goalBoard[i][j];
+        	}
+        }
+	    	    
+   	    for (int i = 0; i < board.length; i++) {
+   	        for (int j = 0; j < board[i].length; j++) {
+   	            if (board[i][j] != newGoalBoard[i][j]) {
+   	                return false;
+   	            }
+   	        }
+   	    }
+   	    return true;
 
-   	    return false;
     }	    
-
-	    //return true when this state and other are equivalent states
-    public boolean equals(Object o) {
-	    	
-    	SState other = (SState)o;
-    	if (this.moves == other.moves && this.board == other.board) {
-    		return true;
-    	}
-    	return false;
-    }
 	
     //change toString() to put lines between the numbers to look like a real board
       public String toString() {
@@ -99,4 +110,3 @@ public class SudokuState {
     public void printState() {
         System.out.println(this.toString());
     }
-}
