@@ -60,7 +60,7 @@ class PSudokuMain {
                                         else{
                                             Random random = new Random();
                                             int randomElement = children.get(random.nextInt(children.size()));
-                                            int[] newBoard= board.clone();
+                                            int[][] newBoard= board.clone();
                                             newBoard[i][j] = randomElement;
 
                                             PSudokuState newState = new PSudokuState(newBoard,moves+1);
