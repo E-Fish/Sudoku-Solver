@@ -1,32 +1,85 @@
 
 import java.util.Random;
+import java.util.List;
 
 public class SudokuState {
 	int [][] board = new int [4][4]; //2D array
 	int moves;
-
+    List<int> possibleMoves;
 
 	//constructor
 	public SudokuState(int[][] board, int moves) {
         this.board = board;
         this.moves = moves;
     }
-	   
-    // Edie: applyValidAction()
-    public void applyValidAction(int[][] initialBoard) {
-    	//it needs to sift through the whole array and notice when a value is zero - done
-    	//needs to see the other values in the row, column, and square of the current decision
-    	//needs to take those values and deduce out of 1,2,3, and 4 which moves are possible
-    	//if there is more than one possibility it needs to randomly choose one and apply it to that cell
-    	
-    	for (int i = 0; i < initialBoard.length; i++) {
-   	        for (int j = 0; j < initialBoard[i].length; j++) {
-   	            if (initialBoard[i][j] == 0) {
-   	                
+
+    //not needed rn but good to keep incase?
+    /*boolean isValid(int [][], int num, int row, int, col, int box)
+    {
+        for (int i = 0; i < input.length; i++) {
+            for (int j = 0; j < input.length; j++) {
+                if (input[i].equals(input[j]) && i != j) {
+                    return true;
+                }
+            }
+        }
+        return false;
+
+       for (int i=0;i<board.length;i++)
+       {
+            
+       }
+    }*/
+    
+	public int moveRow(int[][] board) {
+        //it needs to sift through the whole array and notice when a value is zero
+        for (int i = 0; i < board.length; i++) {
+   	        for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == 0) {
+                    int row = i;
+                    return row;
+                	}
    	            }
    	        }
    	    }
-
+	public int moveCol(int[][] board) {
+        //it needs to sift through the whole array and notice when a value is zero
+        for (int i = 0; i < board.length; i++) {
+   	        for (int j = 0; j < board[i].length; j++) {
+                if (board[i][j] == 0) {
+                    int col = j;
+                    return col;
+                }
+   	            }
+   	        }
+        
+   	}
+    
+    // Edie: applyValidAction()
+    public List<Integer> applyValidAction(int[][] initialBoard, int row, int col) {
+    	//needs to see the other values in the row, column, and square of the current decision
+        for (int i=1; i<5; i++){
+            for (int x=0; x<board.length; x++){
+                if (board[x][col]==i-1) {
+                 break;
+                }
+            }
+            for (int y=0; y<board.length; y++) {
+                if (board[row][y]==i-1) {
+                    break;
+                }
+            }
+            int r=row-row%2;
+            int c=col-col%2;
+            for (int e=0;e<r+2; e++){
+                for (int f=0;f<c+2;f++){
+                   if (board[e][f]==i-1)
+                   break; 
+                }
+            }
+            possibleMoves.add(i);
+        }
+        return possibleMoves;
     }
     
     
