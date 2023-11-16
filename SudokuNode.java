@@ -1,3 +1,4 @@
+package code;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -18,7 +19,17 @@ public class SudokuNode {
         return this.state;
     }
     
+    public SudokuNode getParent() {
+    	return this.parent;
+    }
+    public SudokuNode clone() {
+    	SudokuNode newNode = this;
+    	return newNode;
+    }
     
+    public List<SudokuNode> getChildren(){
+		return children;
+	}
     //creates copy of board for generateChildren() so that board can be modified and returned without altering current
     private int[][] copyBoard(int[][] ogBoard) {
     	
@@ -29,18 +40,15 @@ public class SudokuNode {
         }
         return copy;
     }
-    
-    boolean isValid(int amtRowMoved, int amtColMoved) { 
-    	
-    	//verify that no switches happen outside of the bounderies
-        //still need to brainstorm more ways it could go wring
-    	if (amtRowMoved >= 0 && amtRowMoved < state.board.length && amtColMoved >= 0 && amtColMoved < state.board[0].length) {
-    		return true;
-    	}
-    	else {
-    		return false;
-    	}
- 
-    }
-      
+   
+   void generateChildren(){
+	   int[][] b= state.getBoard();
+	 		      List<Integer> moves = state.applyValidAction();
+	 		      for (Integer move: moves) {
+	 		        		b[state.currMoveRow(b)][state.currMoveCol(b)]=move;
+	 		        		SudokuState nextS = new SudokuState(b, state.getMoves()+1);
+	 		        		SudokuNode nextN = new SudokuNode(nextS, this);
+	 		        		children.add(nextN);
+	 		   }
+   }
 }

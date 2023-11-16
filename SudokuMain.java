@@ -1,10 +1,55 @@
-import java.util.Arrays;
-import java.util.*;
-import java.util.Queue;
-import java.util.Random;
+package code;
 
-class PSudokuMain {
+import java.util.LinkedList;
+import java.util.List;
+
+class SudokuMain {
+
+	/* public boolean solve(SudokuNode starter) {
+		 int [][] goalBoard = {
+		            {4,3,1,2},
+		            {1,2,4,3},
+		            {2,1,3,4},
+		            {3,4,2,1}
+		            };
+     	int[][] b= starter.getState().getBoard();
+ 		if (starter.getState().isGoal(goalBoard)) {
+ 			System.out.println("done");
+ 			return true;
+ 		}
+ 		else {
+ 		SudokuNode curr = starter;
+ 		{
+ 			for(int i=0;i<b.length;i++)
+ 		    {
+ 		        for(int j=0;j<b.length;j++)
+ 		        {
+ 		        	if (b[i][j]==0) {
+ 		        	List<Integer> moves = curr.getState().applyValidAction();
+ 		        	for (Integer move: moves) {
+ 		        		if (curr.getState().isValid(move)) {
+ 		        			b[i][j]=move;
+ 		        			SudokuState nextS = new SudokuState(b, curr.getState().getMoves()+1);
+ 		        			SudokuNode nextN = new SudokuNode(nextS, curr);
+ 		        			if (solve(nextN)) {
+ 		        				return true;
+ 		        			}
+ 		        			else {
+ 		        				b[i][j]=0;
+ 		        			}
+ 		        		}
+ 		        		}
+ 		        	}
+ 		        	
+ 		        }
+ 		        	return false;
+ 		    }
+ 		}
+ 		return true;
+ 		}
+     }*/
     public static void main (String[]array){
+ 
         // initial game state
           int [][] board = { // [row][column]
             {4,0,1,0},
@@ -20,17 +65,57 @@ class PSudokuMain {
             {2,1,3,4},
             {3,4,2,1}
             };
-      
-        //goalBoard.initalize();
-        
         SudokuState initialState = new SudokuState(board, 0);
         SudokuNode initialNode = new SudokuNode(initialState, null);
-        List<SudokuNode> frontier = new ArrayList<SudokuNode>();
+        initialState.printState();
+        initialNode.generateChildren();
+        for (SudokuNode child: initialNode.getChildren())
+        {
+        	child.getState().printState();
+        	//next.add(new SudokuNode(child.getState(),child));
+        }
+        /*for(SudokuNode little: next)
+        {
+        	for (int i=1; i<5; i++){
+        		if (little.getState().isValid(i))
+        		{
+        			System.out.println(i);
+        		}
+        	}
+        }*/
+    }
+}
+
+        /*initialState.initalize(goalBoard);
+        
+
+     
+       /* Queue<SudokuNode> frontier = new LinkedList<>(); 
         frontier.add(initialNode);
-        List<SudokuState> goalPath = new ArrayList<SudokuState>();
-    
+		SudokuNode goal=null;
+		Stack<SudokuState> path = new Stack<SudokuState>();
+		SudokuNode curr;
+        while (goal==null) { 
+			 if (frontier.isEmpty()) { 
+				 break;
+			 }
+			curr = frontier.poll();
+			List<Integer> moves = curr.getState().applyValidAction(); 
+				for (Integer move : moves) 
+				{
+					if (curr.getState().isGoal(goalBoard)) 
+					 {
+						 goal=current;
+						 break;
+					 }
+					 else {
+						curr.getState().applyValidAction();
+						frontier.add(curr);
+					 }
+				}
+			 }*/
         // iterate thru states
-        while(frontier.isEmpty()!=true){
+       /* while(frontier.isEmpty()!=true){
             for(int i=0; i<frontier.size()-1; i++){//for each node in frontier
                  SudokuNode curr = frontier.get(i);
                  //iterate through its array, find next blank, come up with moves, chose move
@@ -48,12 +133,11 @@ class PSudokuMain {
                         for(int j=0; j<4; i++){
                             for(int k=0; k<4; k++){
                                 if(curr.board[i][j]==0){
-                                    List newMoves = curr.ApplyValidAction();//applyvalidaction returns a list, applyihgn this to curr gets new children
+                                    List<Integer> newMoves = curr.getState().applyValidAction();//applyvalidaction returns a list, applyihgn this to curr gets new children
                                     children.addAll(newMoves);//children is now the list of new moves from this state
                                     for(int l=0; l<children.length(); l++){
                                         if(children.get(l)==null){
-                                            //go back to repository
-                                            //trigger stacy code?
+                                          curr.getParent();
                                         }
                                         else{
                                             Random random = new Random();
@@ -71,6 +155,4 @@ class PSudokuMain {
                         }
                     }
             }    
-        }
-    }
-}
+        }*/

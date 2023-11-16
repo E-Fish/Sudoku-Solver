@@ -1,87 +1,100 @@
+package code;
 import java.util.Random;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SudokuState {
 	int [][] board = new int [4][4]; //2D array
 	int moves;
-    List<Integer> possibleMoves;
+	List<Integer> possibleMoves = new LinkedList<Integer>();
 
 	//constructor
 	public SudokuState(int[][] board, int moves) {
         this.board = board;
         this.moves = moves;
     }
-
+	
+	public int[][] getBoard(){
+		return this.board;
+	}
+	public int getMoves() {
+		return this.moves;
+	}
+	
     //not needed rn but good to keep incase?
-    /*boolean isValid(int [][], int num, int row, int, col, int box)
+    boolean isValid(int num)
     {
-        for (int i = 0; i < input.length; i++) {
-            for (int j = 0; j < input.length; j++) {
-                if (input[i].equals(input[j]) && i != j) {
-                    return true;
+    	int row = currMoveRow(board);
+    	int col = currMoveRow(board);
+    	//checks row
+            for (int x=0; x<4; x++){
+                if (board[row][x]==num) {
+                  return false;
                 }
             }
-        }
-        return false;
-
-       for (int i=0;i<board.length;i++)
-       {
-            
-       }
-    }*/
-    
-	/*public int currMoveRow(int[][] board) {
+            //checks col
+            for (int y=0; y<4; y++) {
+                if (board[y][col]==num) {
+                  return false;
+                }
+            }
+            //checks box
+           /*int r=row-row%2;
+           int c=col-col%2;
+            for (int i=0;i<2; i++){
+                for (int j=0;j<2;j++){
+                   if (board[r][c]==num)
+                   return false; 
+                }
+            }*/
+    	return true;
+    }
+	public int currMoveRow(int[][] board) {
         //it needs to sift through the whole array and notice when a value is zero
-        for (int i = 0; i < board.length; i++) {
-   	        for (int j = 0; j < board[i].length; j++) {
+        int row=0;
+		check:{for (int i = 0; i < board.length; i++) {
+   	        for (int j = 0; j < board.length; j++) {
                 if (board[i][j] == 0) {
-                    int row = i;
-                    return row;
+                    row = i;
+                    break check;
                 	}
-   	            }
    	        }
-   	    }
+		}
+		}
+		return row;
+	}
+	
 	public int currMoveCol(int[][] board) {
         //it needs to sift through the whole array and notice when a value is zero
-        for (int i = 0; i < board.length; i++) {
-   	        for (int j = 0; j < board[i].length; j++) {
+       int col=0;
+       check:{for (int i = 0; i < board.length; i++) {
+   	        for (int j = 0; j < board.length; j++) {
                 if (board[i][j] == 0) {
-                    int col = j;
-                    return col;
+                    col = j;
+                    break check;
                 }
    	        }
    	    }
-   	}*/
+       }
+		return col;
+   	}
     
     // Edie: applyValidAction()
-    public List<Integer> applyValidAction(int[][] initialBoard, int row, int col) {
+    public List<Integer> applyValidAction() {
     	//needs to see the other values in the row, column, and square of the current decision
+ //   	int row = this.currMoveRow(board);
+   // 	int col = this.currMoveCol(board);
     	for (int i=1; i<5; i++){
-            for (int x=0; x<board.length; x++){
-                if (board[x][col]==i-1) {
-                  break;
-                }
-            }
-            for (int y=0; y<board.length; y++) {
-                if (board[row][y]==i-1) {
-                    break;
-                }
-            }
-            int r=row-row%2;
-            int c=col-col%2;
-            for (int e=0;e<r+2; e++){
-                for (int f=0;f<c+2;f++){
-                   if (board[e][f]==i)
-                   break; 
-                }
-            }
-            possibleMoves.add(i);
+    		if (isValid(i))
+    		{
+    			//	System.out.println(i);
+    			possibleMoves.add(i);
+    		}
         }
         return possibleMoves;
-
     }
     
-    
+ 
     // Edie: take a solved board and create an unsolved board from it initalize()
     public static int[][] initalize(int[][] goalBoard) {
 
