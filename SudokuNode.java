@@ -3,19 +3,19 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SudokuNode {
-	SState state;
-    SNode parent;
-    List<SNode> children;
+	SudokuState state;
+	SudokuNode parent;
+    List<SudokuNode> children;
     
    
-    public SudokuNode(SState s, SNode p) {
+    public SudokuNode(SudokuState s, SudokuNode p) {
         this.state = s;
         this.parent = p;
-        this.children = new LinkedList<SNode>();
+        this.children = new LinkedList<SudokuNode>();
     }
     
-    public SState getState() {
-        return ;
+    public SudokuState getState() {
+        return this.state;
     }
     
     
@@ -30,7 +30,7 @@ public class SudokuNode {
         return copy;
     }
     
-    /*boolean isValid(int amtRowMoved, int amtColMoved) { 
+    boolean isValid(int amtRowMoved, int amtColMoved) { 
     	
     	//verify that no switches happen outside of the bounderies
         //still need to brainstorm more ways it could go wring
@@ -41,6 +41,6 @@ public class SudokuNode {
     		return false;
     	}
  
-    }*/
+    }
       
 }
