@@ -31,7 +31,7 @@ public class SudokuNode {
 		return children;
 	}
     //creates copy of board for generateChildren() so that board can be modified and returned without altering current
-    private int[][] copyBoard(int[][] ogBoard) {
+  /*  private int[][] copyBoard(int[][] ogBoard) {
     	
         int[][] copy = new int[ogBoard.length][ogBoard[0].length];
         
@@ -39,11 +39,11 @@ public class SudokuNode {
             System.arraycopy(ogBoard[i], 0, copy[i], 0, ogBoard[0].length);
         }
         return copy;
-    }
+    }*/
    
    void generateChildren(){
-	   int[][] b= state.getBoard();
-	 		      List<Integer> moves = state.applyValidAction();
+	   int[][] b = state.getBoard();
+	 		      List<Integer> moves = state.validAction();
 	 		      for (Integer move: moves) {
 	 		        		b[state.currMoveRow(b)][state.currMoveCol(b)]=move;
 	 		        		SudokuState nextS = new SudokuState(b, state.getMoves()+1);

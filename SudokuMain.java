@@ -48,7 +48,7 @@ class SudokuMain {
  		return true;
  		}
      }*/
-    public static void main (String[]array){
+    public static void main (String[]args){
  
         // initial game state
           int [][] board = { // [row][column]
@@ -72,19 +72,25 @@ class SudokuMain {
         for (SudokuNode child: initialNode.getChildren())
         {
         	child.getState().printState();
-        	//next.add(new SudokuNode(child.getState(),child));
-        }
-        /*for(SudokuNode little: next)
-        {
-        	for (int i=1; i<5; i++){
-        		if (little.getState().isValid(i))
-        		{
-        			System.out.println(i);
-        		}
+        	child.generateChildren();
+        	  for (SudokuNode next: child.getChildren())
+              {
+        		  next.getState().printState();
+        		  next.generateChildren();
+        		  for (SudokuNode small: next.getChildren())
+        	        {
+        			  small.getState().printState();
+        			  small.generateChildren();
+        			  for (SudokuNode orange: small.getChildren())
+          	        {
+        				  orange.getState().printState();
+          	        }
+        	        }
+              }
         	}
-        }*/
+        }
     }
-}
+
 
         /*initialState.initalize(goalBoard);
         

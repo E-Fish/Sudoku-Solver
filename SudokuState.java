@@ -25,7 +25,7 @@ public class SudokuState {
     boolean isValid(int num)
     {
     	int row = currMoveRow(board);
-    	int col = currMoveRow(board);
+    	int col = currMoveCol(board);
     	//checks row
             for (int x=0; x<4; x++){
                 if (board[row][x]==num) {
@@ -39,14 +39,15 @@ public class SudokuState {
                 }
             }
             //checks box
-           /*int r=row-row%2;
+           int sqrt = (int)Math.sqrt(board.length);
+           int r=row-row%2;
            int c=col-col%2;
-            for (int i=0;i<2; i++){
-                for (int j=0;j<2;j++){
-                   if (board[r][c]==num)
+            for (int i=r;i<r+sqrt; i++){
+                for (int j=c;j<c+sqrt;j++){
+                   if (board[i][j]==num)
                    return false; 
                 }
-            }*/
+            }
     	return true;
     }
 	public int currMoveRow(int[][] board) {
@@ -80,14 +81,14 @@ public class SudokuState {
    	}
     
     // Edie: applyValidAction()
-    public List<Integer> applyValidAction() {
+    public List<Integer> validAction() {
     	//needs to see the other values in the row, column, and square of the current decision
  //   	int row = this.currMoveRow(board);
    // 	int col = this.currMoveCol(board);
     	for (int i=1; i<5; i++){
     		if (isValid(i))
     		{
-    			//	System.out.println(i);
+    			System.out.println(i);
     			possibleMoves.add(i);
     		}
         }
