@@ -1,8 +1,6 @@
 import java.util.Arrays;
 import java.util.*;
-import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.Comparator;
 import java.util.Random;
 
 class PSudokuMain {
@@ -25,7 +23,7 @@ class PSudokuMain {
       
         //goalBoard.initalize();
         
-        SudokuState initialState = new SudokuState(initialBoard,0);
+        SudokuState initialState = new SudokuState(board, 0);
         SudokuNode initialNode = new SudokuNode(initialState, null);
         List<SudokuNode> frontier = new ArrayList<SudokuNode>();
         frontier.add(initialNode);
@@ -33,10 +31,10 @@ class PSudokuMain {
     
         // iterate thru states
         while(frontier.isEmpty()!=true){
-            for(int i=0; i<frontier.length()-1; i++){//for each node in frontier
+            for(int i=0; i<frontier.size()-1; i++){//for each node in frontier
                  SudokuNode curr = frontier.get(i);
                  //iterate through its array, find next blank, come up with moves, chose move
-                    if(curr.board.isGoal()){
+                    if(curr.board.isGoal(curr)){
                         goalPath.add(curr);
                         while(curr.parent != null){
                             curr = curr.p;
@@ -60,7 +58,7 @@ class PSudokuMain {
                                         else{
                                             Random random = new Random();
                                             int randomElement = children.get(random.nextInt(children.size()));
-                                            int[][] newBoard= board.clone();
+                                            int[][] newBoard = board.clone();
                                             newBoard[i][j] = randomElement;
 
                                             PSudokuState newState = new PSudokuState(newBoard,moves+1);
@@ -72,18 +70,7 @@ class PSudokuMain {
                             }
                         }
                     }
-                
             }    
         }
-        
-            //generate possible moves, add to children frontier
-
-            // randomly choose a move
-
-        // 
-
-
-        // fir
     }
-}
 }
