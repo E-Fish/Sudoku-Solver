@@ -1,11 +1,10 @@
-
 import java.util.Random;
 import java.util.List;
 
 public class SudokuState {
 	int [][] board = new int [4][4]; //2D array
 	int moves;
-    List<int> possibleMoves;
+    List<Integer> possibleMoves;
 
 	//constructor
 	public SudokuState(int[][] board, int moves) {
@@ -31,7 +30,7 @@ public class SudokuState {
        }
     }*/
     
-	public int moveRow(int[][] board) {
+	/*public int currMoveRow(int[][] board) {
         //it needs to sift through the whole array and notice when a value is zero
         for (int i = 0; i < board.length; i++) {
    	        for (int j = 0; j < board[i].length; j++) {
@@ -42,7 +41,7 @@ public class SudokuState {
    	            }
    	        }
    	    }
-	public int moveCol(int[][] board) {
+	public int currMoveCol(int[][] board) {
         //it needs to sift through the whole array and notice when a value is zero
         for (int i = 0; i < board.length; i++) {
    	        for (int j = 0; j < board[i].length; j++) {
@@ -50,18 +49,17 @@ public class SudokuState {
                     int col = j;
                     return col;
                 }
-   	            }
    	        }
-        
-   	}
+   	    }
+   	}*/
     
     // Edie: applyValidAction()
     public List<Integer> applyValidAction(int[][] initialBoard, int row, int col) {
     	//needs to see the other values in the row, column, and square of the current decision
-        for (int i=1; i<5; i++){
+    	for (int i=1; i<5; i++){
             for (int x=0; x<board.length; x++){
                 if (board[x][col]==i-1) {
-                 break;
+                  break;
                 }
             }
             for (int y=0; y<board.length; y++) {
@@ -73,13 +71,14 @@ public class SudokuState {
             int c=col-col%2;
             for (int e=0;e<r+2; e++){
                 for (int f=0;f<c+2;f++){
-                   if (board[e][f]==i-1)
+                   if (board[e][f]==i)
                    break; 
                 }
             }
             possibleMoves.add(i);
         }
         return possibleMoves;
+
     }
     
     
@@ -163,3 +162,4 @@ public class SudokuState {
     public void printState() {
         System.out.println(this.toString());
     }
+}
