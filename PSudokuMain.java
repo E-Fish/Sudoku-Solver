@@ -38,7 +38,7 @@ class PSudokuMain {
             for(int i=0; i<frontier.size(); i++){//for each node in frontier
                  SudokuNode curr = frontier.get(i);
                  //iterate through its array, find next blank, come up with moves, chose move
-                    if(curr.getState().getBoard() == goalBoard){
+                    if(Arrays.deepEquals(curr.getState().getBoard(),goalBoard)){
                         System.out.print("if");
                         goalPath.add(curr.getState());
                         while(curr.parent != null){
@@ -52,7 +52,7 @@ class PSudokuMain {
                     else{ 
                         for(int j=0; j<4; i++){
                             for(int k=0; k<4; k++){
-                                if(curr.getState().getBoard()[i][j]==0){
+                                if(curr.getState().getBoard()[j][k]==0){
                                     System.out.println("else");
                                   //  List<Integer> newMoves = curr.getState().validAction();//applyvalidaction returns a list, applyihgn this to curr gets new children
                                     //PIPPA COME BACK TO
@@ -61,9 +61,11 @@ class PSudokuMain {
                                  //   curr.getChildren().addAll(newMoves);//children is now the list of new moves from this state
                                     for(int l=0; l<curr.getChildren().size(); l++){
                                         if(curr.getChildren().get(l)==null){
+                                            //STACY START HERE!!!
                                             //go back to repository
                                             //trigger stacy code?
                                         }
+                                        
                                         else{
                                             Random random = new Random();
                                             int randomIndex = random.nextInt(curr.getChildren().size());
@@ -74,6 +76,7 @@ class PSudokuMain {
                                           //  SudokuState newState = new SudokuState(newBoard,curr.getState().getMoves()+1);
                                           //  SudokuNode newNode = new SudokuNode(newState, curr);
                                             frontier.add(randomNode);
+                                            System.out.println(randomNode.getState());
                                         }
                                     }
                                 }
