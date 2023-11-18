@@ -4,37 +4,52 @@ import java.util.List;
 public class SudokuNode {
 	SudokuState state;
 	SudokuNode parent;
-    List<Integer> currentMoveOptions;
     List<SudokuNode> children;
-
-    //constructor
+    
+   
     public SudokuNode(SudokuState s, SudokuNode p) {
-        state = s;
-        parent = p;
-        List<SudokuNode> c = new LinkedList<SudokuNode>();
-        children = c;
+        this.state = s;
+        this.parent = p;
+        this.children = new LinkedList<SudokuNode>();
     }
     
     public SudokuState getState() {
-        return this.state;}
+        return this.state;
+    }
+    
     public SudokuNode getParent() {
-    	return this.parent;}
-    public List<SudokuNode> getChildren(){
-        return children;}
-
+    	return this.parent;
+    }
     public SudokuNode clone() {
     	SudokuNode newNode = this;
     	return newNode;
     }
+    
+    public List<SudokuNode> getChildren(){
+		return children;
+	}
 
-   void generateChildren(){
-	   int[][] b = state.getBoard();
-	 		      List<Integer> moves = state.getPossibleMoves();
-	 		      for (Integer move: moves) {
-	 		        		b[state.currMoveRow(b)][state.currMoveCol(b)]=move;//finds index of first 0
-	 		        		SudokuState nextState = new SudokuState(b, state.getMoves()+1);
-	 		        		SudokuNode nextNode = new SudokuNode(nextState, this);
-	 		        		children.add(nextNode);
-	 		   }
-   }
+    void generateChildren() {
+        int[][] board = state.getBoard();
+
+        List<Integer> moves = state.possibleMoves();
+        for (Integer move : moves) {
+            int[][] newBoard = copyBoard(board); 
+            newBoard[state.currMoveRow(newBoard)][state.currMoveCol(newBoard)] = move;
+
+            SudokuState nextState = new SudokuState(newBoard, state.getMoves()+1);
+            SudokuNode nextNode = new SudokuNode(nextState, this);
+            children.add(nextNode);
+        }
+    }
+
+    private int[][] copyBoard(int[][] ogBoard) {
+        int[][] copy = new int[ogBoard.length][ogBoard[0].length];
+
+        for (int i = 0; i < ogBoard.length; i++) {
+            System.arraycopy(ogBoard[i], 0, copy[i], 0, ogBoard[0].length);
+        }
+
+        return copy;
+    }
 }
