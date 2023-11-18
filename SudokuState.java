@@ -9,9 +9,9 @@ public class SudokuState {
 	List<Integer> possibleMoves = new LinkedList<Integer>();
 
 	//constructor
-	public SudokuState(int[][] board, int moves) {
-        this.board = board;
-        this.moves = moves;
+	public SudokuState(int[][] b, int m) {
+       board = b;
+       moves = m;
     }
 	
 	public int[][] getBoard(){
@@ -122,7 +122,7 @@ public class SudokuState {
         int cols = goalBoard[0].length;
 
         //deciding how many we want to delete
-        int amtToDelete = 10;
+        int amtToDelete = 8;
         
         //randomly chooses cells in the array as many times as we want cells switched to zero and switches them to zero
         Random random = new Random();
@@ -182,5 +182,5 @@ public class SudokuState {
     }
 	    
     public void printState() {
-        System.out.println(this.toString());
+        System.out.print(this.toString());
     }
