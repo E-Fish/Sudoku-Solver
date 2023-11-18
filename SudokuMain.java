@@ -1,3 +1,4 @@
+
 import java.util.List;
 
 class SudokuMain {
@@ -8,24 +9,22 @@ class SudokuMain {
                 {2, 1, 3, 4},
                 {3, 4, 2, 1}
         };
-
-        boolean solved = false;
-
-        while (!solved) {
-            SudokuState initialState = new SudokuState(SudokuState.initalize(goalBoard), 0);
-            initialState.printState();
-            SudokuNode initialNode = new SudokuNode(initialState, null);
-            solved = solve(initialNode, goalBoard);
-        }
+		
+		//brand new unique initial board is generated every time the program is run
+	    SudokuState initialState = new SudokuState(SudokuState.initalize(goalBoard), 0);
+	    System.out.println("Initial unique board:");
+	    initialState.printState();
+	    System.out.println("");
+	    SudokuNode initialNode = new SudokuNode(initialState, null);
+	    solve(initialNode, goalBoard);
+	    System.out.println("Board solved!");
 
 }  
 
 public static boolean solve(SudokuNode starter, int [][] goalBoard) {
-
 	int[][] b = starter.getState().getBoard();
 
     if (starter.getState().isGoal(goalBoard)) {
-        System.out.println("done");
         return true;
     } 
     else {
@@ -44,21 +43,22 @@ public static boolean solve(SudokuNode starter, int [][] goalBoard) {
                             SudokuState nextState = new SudokuState(b, curr.getState().getMoves() + 1);
                             SudokuNode nextNode = new SudokuNode(nextState, curr);
                             nextState.printState();
-                            
+                            System.out.println("Move made: " + move);
+                            System.out.println("");
                             if (solve(nextNode, goalBoard)) {
                                 if (nextNode.getState().isGoal(goalBoard)) {
-                                    return true;
+                                return true;
                                 }
                             } 
                             else {
                                 b[i][j] = 0;
-                            }
+                            }   
                         }
                     }
                 }
             }
         }
     }
-    return false;
+        return false;
 	}
 }
