@@ -1,4 +1,4 @@
-package code;
+
 import java.util.Random;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,12 +21,12 @@ public class SudokuState {
 		return this.moves;
 	}
 	
-    //not needed rn but good to keep incase?
+    //
     boolean isValid(int num)
     {
     	int row = currMoveRow(board);
     	int col = currMoveCol(board);
-    	//checks row
+    		//checks row
             for (int x=0; x<4; x++){
                 if (board[row][x]==num) {
                   return false;
@@ -39,15 +39,15 @@ public class SudokuState {
                 }
             }
             //checks box
-           int sqrt = (int)Math.sqrt(board.length);
-           int r=row-row%2;
-           int c=col-col%2;
-            for (int i=r;i<r+sqrt; i++){
-                for (int j=c;j<c+sqrt;j++){
-                   if (board[i][j]==num)
-                   return false; 
-                }
-            }
+            int sqrt = (int)Math.sqrt(board.length);
+            int r=row-row%2;
+            int c=col-col%2;
+             for (int i=r;i<r+sqrt; i++){
+                 for (int j=c;j<c+sqrt;j++){
+                    if (board[i][j]==num)
+                    return false; 
+                 }
+             }
     	return true;
     }
 	public int currMoveRow(int[][] board) {
@@ -65,6 +65,15 @@ public class SudokuState {
 		return row;
 	}
 	
+	public boolean equals(Object o) {
+    	
+    	SudokuState other = (SudokuState)o;
+    	if (this.board == other.board) {
+    		return true;
+    	}
+    	return false;
+    }
+	
 	public int currMoveCol(int[][] board) {
         //it needs to sift through the whole array and notice when a value is zero
        int col=0;
@@ -80,15 +89,14 @@ public class SudokuState {
 		return col;
    	}
     
-    // Edie: applyValidAction()
-    public List<Integer> validAction() {
+    public List<Integer> possibleMoves() {
     	//needs to see the other values in the row, column, and square of the current decision
- //   	int row = this.currMoveRow(board);
-   // 	int col = this.currMoveCol(board);
+    	//int row = this.currMoveRow(board);
+    	//int col = this.currMoveCol(board);
     	for (int i=1; i<5; i++){
     		if (isValid(i))
     		{
-    			System.out.println(i);
+    			//	System.out.println(i);
     			possibleMoves.add(i);
     		}
         }
@@ -176,4 +184,3 @@ public class SudokuState {
     public void printState() {
         System.out.println(this.toString());
     }
-}
