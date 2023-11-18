@@ -184,3 +184,4 @@ public class SudokuState {
     public void printState() {
         System.out.print(this.toString());
     }
+}
