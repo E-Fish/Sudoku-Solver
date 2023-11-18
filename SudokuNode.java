@@ -18,7 +18,7 @@ public class SudokuNode {
     }
     
     public SudokuNode getParent() {
-    	return this.parent;
+    	return parent;
     }
     public SudokuNode clone() {
     	SudokuNode newNode = this;
@@ -36,7 +36,6 @@ public class SudokuNode {
         for (Integer move : moves) {
             int[][] newBoard = copyBoard(board); 
             newBoard[state.currMoveRow(newBoard)][state.currMoveCol(newBoard)] = move;
-
             SudokuState nextState = new SudokuState(newBoard, state.getMoves()+1);
             SudokuNode nextNode = new SudokuNode(nextState, this);
             children.add(nextNode);
