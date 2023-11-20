@@ -21,7 +21,7 @@ public class SudokuState {
 		return this.moves;
 	}
 	
-    //
+    //checks if the move made is illegal or not
     boolean isValid(int num)
     {
     	int row = currMoveRow(board);
@@ -50,6 +50,8 @@ public class SudokuState {
              }
     	return true;
     }
+    
+    //returns the row of the square in the grid being worked on
 	public int currMoveRow(int[][] board) {
         //it needs to sift through the whole array and notice when a value is zero
         int row=0;
@@ -65,6 +67,7 @@ public class SudokuState {
 		return row;
 	}
 	
+	
 	public boolean equals(Object o) {
     	
     	SudokuState other = (SudokuState)o;
@@ -74,6 +77,7 @@ public class SudokuState {
     	return false;
     }
 	
+	//returns the column of the square in the grid being worked on
 	public int currMoveCol(int[][] board) {
         //it needs to sift through the whole array and notice when a value is zero
        int col=0;
@@ -89,6 +93,7 @@ public class SudokuState {
 		return col;
    	}
     
+	//returns all the possible moves for a specific square using isValid() to disqualify some
     public List<Integer> possibleMoves() {
     	//needs to see the other values in the row, column, and square of the current decision
     	//int row = this.currMoveRow(board);
@@ -104,7 +109,7 @@ public class SudokuState {
     }
     
  
-    // Edie: take a solved board and create an unsolved board from it initalize()
+    //take a solved board and create an unsolved board from it initalize()
     public static int[][] initalize(int[][] goalBoard) {
 
         //makes copy of goal board so we don't alter it and can go back and check it later for if its the correct answer if we want
@@ -136,7 +141,7 @@ public class SudokuState {
 
     }
 
-    // Edie: define the goal state isGoal()
+    //checks if its the goal
     boolean isGoal(int [][] goalBoard) { 
     	int[][] newGoalBoard = new int[goalBoard.length][];
         for(int i = 0; i < goalBoard.length; i++)
@@ -181,7 +186,7 @@ public class SudokuState {
         return sb.toString();
     }
 	    
+    //prints state
     public void printState() {
         System.out.print(this.toString());
     }
-}
